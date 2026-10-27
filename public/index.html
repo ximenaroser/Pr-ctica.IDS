@@ -3,146 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adopt Me! Fan Hub | Halloween & Mascotas</title>
-    <!-- Importamos la fuente Poppins desde Google Fonts para un look más moderno -->
+    <title>Adopt Me! Halloween | Fan Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b0714;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(18, 11, 31, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ff9d35;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #d1c6dc;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff9d35;
+        }
+
+        .btn-nav {
+            background: linear-gradient(135deg, #ff8c2f, #ff5e00);
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(255, 140, 47, 0.3);
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            background: radial-gradient(circle at 50% 30%, rgba(103, 37, 133, 0.4) 0%, transparent 60%),
+                        linear-gradient(180deg, #0b0714 0%, #170d2b 100%);
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 157, 53, 0.15);
+            color: #ffbd59;
+            border: 1px solid rgba(255, 157, 53, 0.3);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #b8a9c8;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            background: #ff8c2f;
+            color: #1b102c;
+            padding: 14px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            box-shadow: 0 5px 20px rgba(255, 140, 47, 0.4);
+        }
+
+        .seccion-mascotas {
+            padding: 90px 8%;
+            background: #120b1f;
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .seccion-titulo h2 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #ffad4d;
+            margin-bottom: 10px;
+        }
+
+        .seccion-titulo p {
+            color: #b8a9c8;
+            font-size: 16px;
+        }
+
+        .grid-mascotas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .card-pet {
+            background: #1a102d;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-pet:hover {
+            transform: translateY(-10px);
+            border-color: #ff9d35;
+        }
+
+        .card-imagen {
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card-imagen img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .card-pet:hover .card-imagen img {
+            transform: scale(1.1);
+        }
+
+        .tag-rareza {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .comun { background: #3b3b4f; color: #e2e2f0; }
+        .poco { background: #274d34; color: #bdfcd0; }
+        .rara { background: #1a497c; color: #cce3ff; }
+        .ultrarara { background: #54236b; color: #f2ccff; }
+        .legendaria { background: #6e4311; color: #ffe6aa; }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-body h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .card-body p {
+            color: #b8a9c8;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .precio {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        .precio span { color: #a89bc5; }
+        .precio strong { color: #ffbd59; }
+
+        footer {
+            background: #06040a;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #a89bc5;
+            font-size: 13.5px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Barra de Navegación -->
     <header class="navbar">
-        <div class="logo">
-            <span>🎃</span> Adopt Hub
-        </div>
+        <div class="logo"><span>🎃</span> Adopt Hub</div>
         <nav>
             <a href="#inicio">Inicio</a>
             <a href="#mascotas">Mascotas</a>
-            <a href="#evento">El Evento</a>
             <a href="#comunidad" class="btn-nav">Unirse</a>
         </nav>
     </header>
 
-    <!-- Sección Principal (Hero) -->
     <section class="hero" id="inicio">
         <div class="hero-content">
-            <span class="badge">✨ Edición Especial de Temporada</span>
-            <h1>El Universo de Adopt Me! en un Solo Lugar</h1>
-            <p>Explora guías de eventos, descubre las rarezas de las mascotas, conoce los precios en caramelos y lleva tu inventario al siguiente nivel.</p>
-            <div class="hero-buttons">
-                <a href="#mascotas" class="btn-primary">Ver Mascotas 🐾</a>
-                <a href="#evento" class="btn-secondary">Explorar Evento 🌙</a>
-            </div>
+            <span class="badge">✨ Edición Especial de Halloween</span>
+            <h1>Catálogo Completo de Mascotas de Halloween</h1>
+            <p>Descubre todas las criaturas espeluznantes, sus rarezas y cuántos caramelos necesitas para conseguirlas.</p>
+            <a href="#mascotas" class="btn-primary">Ver Catálogo 🐾</a>
         </div>
     </section>
 
-    <!-- Sección de Mascotas -->
     <section class="seccion-mascotas" id="mascotas">
         <div class="seccion-titulo">
-            <h2>Nuevas Mascotas Destacadas</h2>
-            <p>Conoce los compañeros de edición limitada y cómo conseguirlos</p>
+            <h2>Mascotas del Evento</h2>
+            <p>Colección ampliada con favoritos de los fanáticos</p>
         </div>
 
         <div class="grid-mascotas">
-            <!-- Tarjeta 1 -->
+            <!-- Mascota 1 -->
             <div class="card-pet">
-                <div class="card-imagen bolt">
-                    <span>⚡🐶</span>
+                <div class="card-imagen">
                     <span class="tag-rareza poco">Inusual</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/a/a2/Bolt.png" alt="Bolt Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f415.png'">
                 </div>
                 <div class="card-body">
                     <h3>Bolt</h3>
-                    <p>Una mascota llena de energía eléctrica lista para unirse a tu equipo.</p>
-                    <div class="precio">
-                        <span>Costo:</span>
-                        <strong>10,000 🍬</strong>
-                    </div>
+                    <p>Mascota llena de energía eléctrica lista para unirse a tu equipo.</p>
+                    <div class="precio"><span>Costo:</span><strong>10,000 🍬</strong></div>
                 </div>
             </div>
 
-            <!-- Tarjeta 2 -->
+            <!-- Mascota 2 -->
             <div class="card-pet">
-                <div class="card-imagen mummy">
-                    <span>🕷️🧟</span>
+                <div class="card-imagen">
                     <span class="tag-rareza rara">Rara</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/e/e0/Mummy_Spider.png" alt="Mummy Spider Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f577.png'">
                 </div>
                 <div class="card-body">
                     <h3>Mummy Spider</h3>
                     <p>Misteriosa araña que acecha en lo más profundo de la Cripta.</p>
-                    <div class="precio">
-                        <span>Costo:</span>
-                        <strong>🎁 Gratis en Cripta</strong>
-                    </div>
+                    <div class="precio"><span>Costo:</span><strong>🎁 Cripta</strong></div>
                 </div>
             </div>
 
-            <!-- Tarjeta 3 -->
+            <!-- Mascota 3 -->
             <div class="card-pet">
-                <div class="card-imagen skeli">
-                    <span>🦄💀</span>
+                <div class="card-imagen">
+                    <span class="tag-rareza ultrarara">Ultra-Rara</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/6/62/Ghost_Dog.png" alt="Ghost Dog Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f436.png'">
+                </div>
+                <div class="card-body">
+                    <h3>Ghost Dog</h3>
+                    <p>Un lomito fantasmagórico súper leal y brillante en la oscuridad.</p>
+                    <div class="precio"><span>Costo:</span><strong>45,000 🍬</strong></div>
+                </div>
+            </div>
+
+            <!-- Mascota 4 -->
+            <div class="card-pet">
+                <div class="card-imagen">
+                    <span class="tag-rareza rara">Rara</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/4/44/Undead_Elk.png" alt="Undead Elk Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f98c.png'">
+                </div>
+                <div class="card-body">
+                    <h3>Undead Elk</h3>
+                    <p>Un alce no-muerto con astas tenebrosas perfecto para pasear de noche.</p>
+                    <div class="precio"><span>Costo:</span><strong>18,000 🍬</strong></div>
+                </div>
+            </div>
+
+            <!-- Mascota 5 -->
+            <div class="card-pet">
+                <div class="card-imagen">
+                    <span class="tag-rareza ultrarara">Ultra-Rara</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/1/18/Werewolf.png" alt="Werewolf Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f43a.png'">
+                </div>
+                <div class="card-body">
+                    <h3>Werewolf</h3>
+                    <p>El hombre lobo clásico que aúlla cuando llega la medianoche.</p>
+                    <div class="precio"><span>Costo:</span><strong>75,000 🍬</strong></div>
+                </div>
+            </div>
+
+            <!-- Mascota 6 -->
+            <div class="card-pet">
+                <div class="card-imagen">
                     <span class="tag-rareza legendaria">Legendaria</span>
+                    <img src="https://static.wikia.nocookie.net/adoptme/images/3/3b/Skelicorn.png" alt="Skelicorn Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f984.png'">
                 </div>
                 <div class="card-body">
                     <h3>Skelicorn</h3>
                     <p>El unicornio esquelético más codiciado de toda la temporada.</p>
-                    <div class="precio">
-                        <span>Costo:</span>
-                        <strong>120,000 🍬</strong>
-                    </div>
+                    <div class="precio"><span>Costo:</span><strong>120,000 🍬</strong></div>
                 </div>
             </div>
 
-            <!-- Tarjeta 4 -->
+            <!-- Mascota 7 -->
             <div class="card-pet">
-                <div class="card-imagen bubble">
-                    <span>🫧👻</span>
+                <div class="card-imagen">
                     <span class="tag-rareza legendaria">Legendaria</span>
+                    <img src="https://www.google.com/imgres?q=bubble%20poltergeist%20adoptme%20pet%20image&imgurl=https%3A%2F%2Fcdn.starpets.gg%2FAM%2F610x610%2Fbubblegeist_1791741358411.webp&imgrefurl=https%3A%2F%2Fstarpets.gg%2Fadopt-me%2Fshop%2Fpet%2Fbubblegeist%2F1745503&docid=iA6lXCJ1rrugnM&tbnid=X_wxZnazEQcILM&vet=12ahUKEwj2wI7y6NqXAxXHdzIDHQUcG1gQnPAOegUIgQEQAA..i&w=610&h=610&hcb=2&ved=2ahUKEwj2wI7y6NqXAxXHdzIDHQUcG1gQnPAOegUIgQEQAA" alt="Bubblegeist Adopt Me" onerror="this.src='https://images.emojiterra.com/google/android-12l/512px/1f47b.png'">
                 </div>
                 <div class="card-body">
                     <h3>Bubblegeist</h3>
-                    <p>Un espíritu flotante y legendario que viene directo de la Caja Poltergeist.</p>
-                    <div class="precio">
-                        <span>Costo:</span>
-                        <strong>🎲 Caja Poltergeist</strong>
-                    </div>
+                    <p>Un espíritu flotante y legendario de la Caja Poltergeist.</p>
+                    <div class="precio"><span>Costo:</span><strong>🎲 Caja</strong></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Actividades del Evento -->
-    <section class="seccion-evento" id="evento">
-        <div class="seccion-titulo">
-            <h2>Actividades de Halloween</h2>
-            <p>No te pierdas ninguna de las dinámicas para farmear recompensas</p>
-        </div>
-
-        <div class="grid-eventos">
-            <div class="evento-box">
-                <div class="icono-evento">🏚️</div>
-                <h3>Mansión Misteriosa</h3>
-                <p>Entra a explorar los pasillos oscuros del Ghost Gallery y completa los retos diarios.</p>
-            </div>
-            <div class="evento-box">
-                <div class="icono-evento">🗝️</div>
-                <h3>La Cripta Secreta</h3>
-                <p>Abre cofres ocultos utilizando llaves especiales para reclamar premios exclusivos.</p>
-            </div>
-            <div class="evento-box">
-                <div class="icono-evento">🍬</div>
-                <h3>Farming de Caramelos</h3>
-                <p>Participa en losminijuegos para recolectar la mayor cantidad de Candy Corn posible.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pie de Página -->
     <footer>
-        <div class="footer-content">
-            <h3>🎃 Adopt Me! Fan Hub</h3>
-            <p>Sitio web informativo creado por fans para la increíble comunidad de Roblox.</p>
-            <p class="disclaimer">Este sitio no está afiliado, asociado ni respaldado oficialmente por Roblox Corporation ni por DreamCraft.</p>
-        </div>
+        <p>🎃 Adopt Me! Fan Hub — Creado por fans para la comunidad.</p>
     </footer>
 
 </body>
